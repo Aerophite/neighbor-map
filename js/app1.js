@@ -401,7 +401,10 @@ function initMap() {
 		this.currentPin = ko.observable(this.pinList()[0]);
 
 		this.setPin = function(clickedPin) {
-			self.currentPin(clickedPin);
+			largeInfoWindow.marker = null;
+            self.currentPin(clickedPin);
+            showInfoWindow(markers[clickedPin.name.Gc-2], largeInfoWindow);
+            loadData(markers[clickedPin.name.Gc-2].name);
 		};
 
 	};
@@ -481,7 +484,7 @@ function showInfoWindow(marker, infoWindow) {
 			}
 		}
 		streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
-		infoWindow.open(map, marker);	
+		infoWindow.open(map, marker);
 	}
 }
 
@@ -528,8 +531,8 @@ function zoomToArea() {
 	}
 }
 
-function loadData() {
-	var $wikiElem = $('#wikipedia-links');
+function loadData(cityStr) {
+	var $wikiElem = $('#wiki-links');
 
 	$wikiElem.text("");
 
